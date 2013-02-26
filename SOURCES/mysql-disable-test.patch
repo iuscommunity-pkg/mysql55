@@ -1,0 +1,14 @@
+--- mysql-5.5.15/mysql-test/t/disabled.def.orig	2011-07-28 12:05:03.000000000 -0500
++++ mysql-5.5.15/mysql-test/t/disabled.def	2011-07-28 12:05:24.000000000 -0500
+@@ -9,6 +9,11 @@
+ #  Do not use any TAB characters for whitespace.
+ #
+ ##############################################################################
++outfile_loaddata         : bug#46895 code wrong, expected results wrong too
++sys_vars.plugin_dir_basic : bug#52223 fails for lib64 library directory
++perfschema.binlog_mix    : bug#59091 fails with openssl
++perfschema.binlog_row    : bug#59091 fails with openssl
++main.openssl_1		  : bug#50804 fails with openssl
+ lowercase_table3         : Bug#11762269 2010-06-30 alik main.lowercase_table3 on Mac OSX
+ read_many_rows_innodb    : Bug#11748886 2010-11-15 mattiasj report already exists
+ sum_distinct-big         : Bug#11764126 2010-11-15 mattiasj was not tested
