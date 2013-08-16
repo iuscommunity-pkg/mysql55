@@ -38,7 +38,6 @@ Source999: filter-requires-mysql.sh
 Source100: my-55-terse.cnf
 Source101: my-55-verbose.cnf
 Source102: mysql.logrotate
-
 Patch1: mysql-errno.patch
 Patch2: mysql-strmov.patch
 Patch3: mysql-install-test.patch
@@ -48,6 +47,7 @@ Patch6: mysql-5.5.28-chain-certs.patch
 Patch7: mysql-versioning.patch
 Patch8: mysql-dubious-exports.patch
 Patch9: mysql-disable-test.patch
+Patch22: mysql-innodbwarn.patch
 
 # IUS Patches
 #Patch300: mysql-5.5.8-bug58350.patch
@@ -239,6 +239,7 @@ cp %{SOURCE101} .
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch22 -p1
 
 # ius patches
 #%patch300 -p1 -b .bug58350 
@@ -439,6 +440,7 @@ rm -f ${RPM_BUILD_ROOT}/usr/INSTALL-BINARY
 rm -f ${RPM_BUILD_ROOT}/usr/docs/ChangeLog
 rm -f ${RPM_BUILD_ROOT}/usr/data/mysql/.empty
 rm -f ${RPM_BUILD_ROOT}/usr/data/test/.empty
+rm -rf ${RPM_BUILD_ROOT}/usr/share/mysql/solaris/
 # should move this to /etc/ ?
 rm -f ${RPM_BUILD_ROOT}%{_bindir}/mysqlaccess.conf
 rm -f ${RPM_BUILD_ROOT}%{_libdir}/mysql/*.a
@@ -681,8 +683,9 @@ fi
 %{_mandir}/man1/mysql_client_test.1*
 
 %changelog
-* Fri Aug 16 2013 Jeffrey Ness <jeffrey.ness@rackspace.com> - 5.5.33-1.ius
+* Fri Aug 16 2013 Ben Harper <ben.harper@rackspace.com> - 5.5.33-1.ius
 - Latest sources from upstream
+- Added Patch22 from mysql-5.5.32-1.fc17.src.rpm
 
 * Thu Apr 18 2013 Ben Harper <ben.harper@rackspace.com> - 5.5.31-1.ius
 - Latest sources from upstream
