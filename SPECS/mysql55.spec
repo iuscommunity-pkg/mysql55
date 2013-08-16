@@ -2,7 +2,7 @@
 %global basever 5.5
 
 Name: mysql55
-Version: 5.5.31
+Version: 5.5.33
 Release: 1.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
@@ -681,6 +681,9 @@ fi
 %{_mandir}/man1/mysql_client_test.1*
 
 %changelog
+* Fri Aug 16 2013 Jeffrey Ness <jeffrey.ness@rackspace.com> - 5.5.33-1.ius
+- Latest sources from upstream
+
 * Thu Apr 18 2013 Ben Harper <ben.harper@rackspace.com> - 5.5.31-1.ius
 - Latest sources from upstream
 - Patch318 add as SSL_OP_NO_COMPRESSION is not available for RHEL 5 openssl
