@@ -1,0 +1,4 @@
+# Change timeout values defined within the initscript.
+
+#STARTTIMEOUT=300
+#STOPTIMEOUT=300

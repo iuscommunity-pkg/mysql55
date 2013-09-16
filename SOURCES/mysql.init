@@ -20,8 +20,8 @@ exec="/usr/bin/mysqld_safe"
 prog="mysqld"
 
 # Set timeouts here so they can be overridden from /etc/sysconfig/mysqld
-STARTTIMEOUT=120
-STOPTIMEOUT=60
+STARTTIMEOUT=300
+STOPTIMEOUT=300
 
 [ -e /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
 

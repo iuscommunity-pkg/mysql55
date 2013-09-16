@@ -3,7 +3,7 @@
 
 Name: mysql55
 Version: 5.5.33
-Release: 1.ius%{?dist}
+Release: 2.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
 URL: http://www.mysql.com
@@ -31,6 +31,7 @@ Source6: README.mysql-docs
 Source7: README.mysql-license
 Source8: libmysql.version
 Source9: mysql-embedded-check.c
+Source11: mysqld.sysconfig
 # Working around perl dependency checking bug in rpm FTTB. Remove later.
 Source999: filter-requires-mysql.sh
 
@@ -355,7 +356,7 @@ cd ../..
     perl ./mysql-test-run.pl --force --retry=0 --ssl --mysqld=--binlog-format=mixed --suite-timeout=720 --testcase-timeout=30
     # cmake build scripts will install the var cruft if left alone :-(
     rm -rf var
-  ) 
+  )
 %endif
 
 %install
@@ -412,6 +413,10 @@ install -m 0644 %{SOURCE100} ${RPM_BUILD_ROOT}%{_sysconfdir}/my.cnf
 # logrotate
 mkdir -p %{buildroot}/etc/logrotate.d/
 install -m 0644 %{SOURCE102} %{buildroot}/etc/logrotate.d/mysqld
+
+# Environment file
+install -m 755 -d $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
+install -m 644 %{SOURCE11} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/mysqld
 
 # Remove libmysqld.a, install libmysqld.so
 rm -f ${RPM_BUILD_ROOT}%{_libdir}/mysql/libmysqld.a
@@ -643,6 +648,7 @@ fi
 %{_datadir}/mysql/config.*.ini
 
 /etc/rc.d/init.d/mysqld
+%config(noreplace) %{_sysconfdir}/sysconfig/mysqld
 %attr(0755,mysql,mysql) %dir /var/run/mysqld
 %attr(0755,mysql,mysql) %dir /var/lib/mysql
 %attr(0640,mysql,mysql) %config(noreplace) %verify(not md5 size mtime) /var/log/mysqld.log
@@ -683,6 +689,10 @@ fi
 %{_mandir}/man1/mysql_client_test.1*
 
 %changelog
+* Mon Sep 16 2013 Ben Harper <ben.harper@rackspace.com> - 5.5.33-2.ius
+- add mysqld.sysconfig to mysql55-server
+- increase timeouts in mysql.init
+
 * Fri Aug 16 2013 Ben Harper <ben.harper@rackspace.com> - 5.5.33-1.ius
 - Latest sources from upstream
 - Added Patch22 from mysql-5.5.32-1.fc17.src.rpm
