@@ -2,8 +2,8 @@
 %global basever 5.5
 
 Name: mysql55
-Version: 5.5.33
-Release: 2.ius%{?dist}
+Version: 5.5.34
+Release: 1.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
 URL: http://www.mysql.com
@@ -689,6 +689,9 @@ fi
 %{_mandir}/man1/mysql_client_test.1*
 
 %changelog
+* Fri Sep 20 2013 Ben Harper <ben.harper@rackspace.com> - 5.5.34-1.ius
+- Latest sources from upstream
+
 * Mon Sep 16 2013 Ben Harper <ben.harper@rackspace.com> - 5.5.33-2.ius
 - add mysqld.sysconfig to mysql55-server
 - increase timeouts in mysql.init
