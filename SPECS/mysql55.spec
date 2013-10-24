@@ -3,7 +3,7 @@
 
 Name: mysql55
 Version: 5.5.34
-Release: 1.ius%{?dist}
+Release: 2.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
 URL: http://www.mysql.com
@@ -106,6 +106,9 @@ Requires: /sbin/ldconfig
 
 # IUS-isms
 Conflicts: mysql-libs < %{basever}
+%if 0%{?rhel} < 6
+Conflicts: mysql55-mysql-libs
+%endif
 Provides: mysql-libs = %{version}-%{release}
 Provides: config(mysql-libs) = %{version}-%{release}
 
@@ -134,6 +137,9 @@ Conflicts: MySQL-server
 
 # IUS-isms
 Conflicts: mysql-server < %{basever}
+%if 0%{?rhel} < 6
+Conflicts: mysql55-mysql-server
+%endif
 Provides: mysql-server = %{version}-%{release}
 Provides: config(mysql-server) = %{version}-%{release}
 
@@ -154,6 +160,9 @@ Conflicts: MySQL-devel
 
 # IUS-isms
 Conflicts: mysql-devel < %{basever}
+%if 0%{?rhel} < 6
+Conflicts: mysql55-mysql-devel
+%endif
 Provides: mysql-devel = %{version}-%{release}
 
 %description devel
@@ -168,6 +177,9 @@ Group: Applications/Databases
 
 # IUS-isms
 Conflicts: mysql-embedded < %{basever}
+%if 0%{?rhel} < 6
+Conflicts: mysql55-mysql-embedded
+%endif
 Provides: mysql-embedded = %{version}-%{release}
 
 %description embedded
@@ -184,6 +196,9 @@ Requires: %{name}-devel = %{version}-%{release}
 
 # IUS-isms
 Conflicts: mysql-embedded-devel < %{basever}
+%if 0%{?rhel} < 6
+Conflicts: mysql55-mysql-embedded-devel
+%endif
 Provides: mysql-embedded-devel = %{version}-%{release}
 
 %description embedded-devel
@@ -200,6 +215,9 @@ Conflicts: MySQL-bench
 
 # IUS-isms
 Conflicts: mysql-bench < %{basever}
+%if 0%{?rhel} < 6
+Conflicts: mysql55-mysql-bench
+%endif
 Provides: mysql-bench = %{version}-%{release}
 
 %description bench
@@ -218,6 +236,9 @@ Conflicts: MySQL-test
 
 # IUS-isms
 Conflicts: mysql-test < %{basever}
+%if 0%{?rhel} < 6
+Conflicts: mysql55-mysql-test
+%endif
 Provides: mysql-test = %{version}-%{release}
 
 %description test
@@ -689,6 +710,9 @@ fi
 %{_mandir}/man1/mysql_client_test.1*
 
 %changelog
+* Thu Oct 24 2013 Ben Harper <ben.harper@rackspace.com> - 5.5.34-2.ius
+- add conflicts for new mysql55 packages in base for EL 5.10
+
 * Fri Sep 20 2013 Ben Harper <ben.harper@rackspace.com> - 5.5.34-1.ius
 - Latest sources from upstream
 
