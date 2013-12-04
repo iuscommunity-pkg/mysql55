@@ -2,8 +2,8 @@
 %global basever 5.5
 
 Name: mysql55
-Version: 5.5.34
-Release: 2.ius%{?dist}
+Version: 5.5.35
+Release: 1.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
 URL: http://www.mysql.com
@@ -14,14 +14,7 @@ License: GPLv2 with exceptions
 # Regression tests take a long time, you can skip 'em with this
 %{!?runselftest:%global runselftest 1}
 
-# Upstream has a mirror redirector for downloads, so the URL is hard to
-# represent statically.  You can get the tarball by following a link from
-# http://dev.mysql.com/downloads/mysql/
-Source0: mysql-%{version}-nodocs.tar.gz
-# The upstream tarball includes non-free documentation that we cannot ship.
-# To remove the non-free documentation, run this script after downloading
-# the tarball into the current directory:
-# ./generate-tarball.sh $VERSION
+Source0: http://dev.mysql.com/get/Downloads/MySQL-5.5/mysql-%{version}.tar.gz
 Source1: generate-tarball.sh
 Source2: mysql.init
 Source3: my.cnf
@@ -106,9 +99,6 @@ Requires: /sbin/ldconfig
 
 # IUS-isms
 Conflicts: mysql-libs < %{basever}
-%if 0%{?rhel} < 6
-Conflicts: mysql55-mysql-libs
-%endif
 Provides: mysql-libs = %{version}-%{release}
 Provides: config(mysql-libs) = %{version}-%{release}
 
@@ -137,9 +127,6 @@ Conflicts: MySQL-server
 
 # IUS-isms
 Conflicts: mysql-server < %{basever}
-%if 0%{?rhel} < 6
-Conflicts: mysql55-mysql-server
-%endif
 Provides: mysql-server = %{version}-%{release}
 Provides: config(mysql-server) = %{version}-%{release}
 
@@ -160,9 +147,6 @@ Conflicts: MySQL-devel
 
 # IUS-isms
 Conflicts: mysql-devel < %{basever}
-%if 0%{?rhel} < 6
-Conflicts: mysql55-mysql-devel
-%endif
 Provides: mysql-devel = %{version}-%{release}
 
 %description devel
@@ -177,9 +161,6 @@ Group: Applications/Databases
 
 # IUS-isms
 Conflicts: mysql-embedded < %{basever}
-%if 0%{?rhel} < 6
-Conflicts: mysql55-mysql-embedded
-%endif
 Provides: mysql-embedded = %{version}-%{release}
 
 %description embedded
@@ -196,9 +177,6 @@ Requires: %{name}-devel = %{version}-%{release}
 
 # IUS-isms
 Conflicts: mysql-embedded-devel < %{basever}
-%if 0%{?rhel} < 6
-Conflicts: mysql55-mysql-embedded-devel
-%endif
 Provides: mysql-embedded-devel = %{version}-%{release}
 
 %description embedded-devel
@@ -215,9 +193,6 @@ Conflicts: MySQL-bench
 
 # IUS-isms
 Conflicts: mysql-bench < %{basever}
-%if 0%{?rhel} < 6
-Conflicts: mysql55-mysql-bench
-%endif
 Provides: mysql-bench = %{version}-%{release}
 
 %description bench
@@ -236,9 +211,6 @@ Conflicts: MySQL-test
 
 # IUS-isms
 Conflicts: mysql-test < %{basever}
-%if 0%{?rhel} < 6
-Conflicts: mysql55-mysql-test
-%endif
 Provides: mysql-test = %{version}-%{release}
 
 %description test
@@ -710,6 +682,11 @@ fi
 %{_mandir}/man1/mysql_client_test.1*
 
 %changelog
+* Wed Dec 04 2013 Ben Harper <ben.harper@rackspace.com> - 5.5.35-1.ius
+- Latest sources from upstream
+- remove conflicts added in 5.5.34-2.ius
+- changed Source0 to URL to tarball since Oracle has removed non-free documentation and tarball is straightforward to download
+
 * Thu Oct 24 2013 Ben Harper <ben.harper@rackspace.com> - 5.5.34-2.ius
 - add conflicts for new mysql55 packages in base for EL 5.10
 
