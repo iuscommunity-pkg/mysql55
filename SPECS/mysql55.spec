@@ -2,7 +2,7 @@
 %global basever 5.5
 
 Name: mysql55
-Version: 5.5.36
+Version: 5.5.37
 Release: 1.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
@@ -595,7 +595,7 @@ fi
 %{_bindir}/resolve_stack_dump
 %{_bindir}/resolveip
 
-/usr/libexec/mysqld
+%{_libexecdir}/mysqld
 
 %{_libdir}/mysql/mysqlbug
 
@@ -651,8 +651,8 @@ fi
 
 %files devel
 %defattr(-,root,root)
-/usr/include/mysql
-/usr/share/aclocal/mysql.m4
+%{_includedir}/mysql
+%{_datadir}/aclocal/mysql.m4
 %{_libdir}/mysql/libmysqlclient.so
 %{_libdir}/mysql/libmysqlclient_r.so
 
@@ -682,6 +682,9 @@ fi
 %{_mandir}/man1/mysql_client_test.1*
 
 %changelog
+* Thu Mar 27 2014 Carl George <carl.george@rackspace.com> - 5.5.37-1.ius
+- Latest sources from upstream
+
 * Fri Jan 31 2014 Ben Harper <ben.harper@rackspace.com> - 5.5.36-1.ius
 - Latest sources from upstream
 
