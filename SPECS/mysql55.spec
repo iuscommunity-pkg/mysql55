@@ -2,7 +2,7 @@
 %global basever 5.5
 
 Name: mysql55
-Version: 5.5.37
+Version: 5.5.38
 Release: 1.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
@@ -682,6 +682,9 @@ fi
 %{_mandir}/man1/mysql_client_test.1*
 
 %changelog
+* Tue Jun 03 2014 Ben Harper <ben.harper@rackspace.com> - 5.5.38-1.ius
+- Latest sources from upstream
+
 * Thu Mar 27 2014 Carl George <carl.george@rackspace.com> - 5.5.37-1.ius
 - Latest sources from upstream
 
