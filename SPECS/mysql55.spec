@@ -330,7 +330,7 @@ ar -x ../libmysqld.a
 # these result in missing dependencies: (filed upstream as bug 59104)
 rm -f sql_binlog.cc.o rpl_utility.cc.o
 gcc $CFLAGS $LDFLAGS -shared -Wl,-soname,libmysqld.so.0 -o libmysqld.so.0.0.1 \
-	*.o ../../probes_mysql.o \
+	*.o \
 	-lpthread -laio -lcrypt -lssl -lcrypto -lz -lrt -lstdc++ -ldl -lm -lc
 # this is to check that we built a complete library
 cp %{SOURCE9} .
@@ -717,6 +717,8 @@ fi
 %changelog
 * Thu Jul 31 2014 Carl George <carl.george@rackspace.com> - 5.5.39-1.ius
 - Latest sources from upstream
+- While compiling libmysqld.so, disable explicit inclusion of probes_mysql.o
+  since it is now underneath libmysqld/work and thus pulled in via wildcard.
 
 * Tue Jun 03 2014 Ben Harper <ben.harper@rackspace.com> - 5.5.38-1.ius
 - Latest sources from upstream
@@ -730,7 +732,8 @@ fi
 * Wed Dec 04 2013 Ben Harper <ben.harper@rackspace.com> - 5.5.35-1.ius
 - Latest sources from upstream
 - remove conflicts added in 5.5.34-2.ius
-- changed Source0 to URL to tarball since Oracle has removed non-free documentation and tarball is straightforward to download
+- changed Source0 to URL to tarball since Oracle has removed non-free
+  documentation and tarball is straightforward to download
 
 * Thu Oct 24 2013 Ben Harper <ben.harper@rackspace.com> - 5.5.34-2.ius
 - add conflicts for new mysql55 packages in base for EL 5.10
