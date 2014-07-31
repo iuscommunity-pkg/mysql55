@@ -2,7 +2,7 @@
 %global basever 5.5
 
 Name: mysql55
-Version: 5.5.38
+Version: 5.5.39
 Release: 1.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
@@ -85,11 +85,13 @@ Requires: mysqlclient16
 # Working around perl dependency checking bug in rpm FTTB. Remove later.
 %global __perl_requires %{SOURCE999}
 
+
 %description
 MySQL is a multi-user, multi-threaded SQL database server. MySQL is a
 client/server implementation consisting of a server daemon (mysqld)
 and many different client programs and libraries. The base package
 contains the standard MySQL client programs and generic MySQL files.
+
 
 %package libs
 
@@ -102,11 +104,13 @@ Conflicts: mysql-libs < %{basever}
 Provides: mysql-libs = %{version}-%{release}
 Provides: config(mysql-libs) = %{version}-%{release}
 
+
 %description libs
 The mysql-libs package provides the essential shared libraries for any 
 MySQL client program or interface. You will need to install this package
 to use any other MySQL package or any clients that need to connect to a
 MySQL server.
+
 
 %package server
 
@@ -130,11 +134,13 @@ Conflicts: mysql-server < %{basever}
 Provides: mysql-server = %{version}-%{release}
 Provides: config(mysql-server) = %{version}-%{release}
 
+
 %description server
 MySQL is a multi-user, multi-threaded SQL database server. MySQL is a
 client/server implementation consisting of a server daemon (mysqld)
 and many different client programs and libraries. This package contains
 the MySQL server and some accompanying files and directories.
+
 
 %package devel
 
@@ -149,10 +155,12 @@ Conflicts: MySQL-devel
 Conflicts: mysql-devel < %{basever}
 Provides: mysql-devel = %{version}-%{release}
 
+
 %description devel
 MySQL is a multi-user, multi-threaded SQL database server. This
 package contains the libraries and header files that are needed for
 developing MySQL client applications.
+
 
 %package embedded
 
@@ -163,10 +171,12 @@ Group: Applications/Databases
 Conflicts: mysql-embedded < %{basever}
 Provides: mysql-embedded = %{version}-%{release}
 
+
 %description embedded
 MySQL is a multi-user, multi-threaded SQL database server. This
 package contains a version of the MySQL server that can be embedded
 into a client application instead of running as a separate process.
+
 
 %package embedded-devel
 
@@ -179,10 +189,12 @@ Requires: %{name}-devel = %{version}-%{release}
 Conflicts: mysql-embedded-devel < %{basever}
 Provides: mysql-embedded-devel = %{version}-%{release}
 
+
 %description embedded-devel
 MySQL is a multi-user, multi-threaded SQL database server. This
 package contains files needed for developing and testing with
 the embedded version of the MySQL server.
+
 
 %package bench
 
@@ -195,10 +207,12 @@ Conflicts: MySQL-bench
 Conflicts: mysql-bench < %{basever}
 Provides: mysql-bench = %{version}-%{release}
 
+
 %description bench
 MySQL is a multi-user, multi-threaded SQL database server. This
 package contains benchmark scripts and data for use when benchmarking
 MySQL.
+
 
 %package test
 
@@ -213,10 +227,12 @@ Conflicts: MySQL-test
 Conflicts: mysql-test < %{basever}
 Provides: mysql-test = %{version}-%{release}
 
+
 %description test
 MySQL is a multi-user, multi-threaded SQL database server. This
 package contains the regression test suite distributed with
 the MySQL sources.
+
 
 %prep
 %setup -q -n mysql-%{version}
@@ -246,6 +262,7 @@ rm -f mysql-test/t/ssl_8k_key-master.opt
 
 # upstream has fallen down badly on symbol versioning, do it ourselves
 cp %{SOURCE8} libmysql/libmysql.version
+
 
 %build
 
@@ -351,6 +368,7 @@ cd ../..
     rm -rf var
   )
 %endif
+
 
 %install
 rm -rf %{buildroot}
@@ -459,16 +477,20 @@ echo "%{_libdir}/mysql" > %{buildroot}/etc/ld.so.conf.d/%{name}-%{_arch}.conf
 cp %{SOURCE6} README.mysql-docs
 cp %{SOURCE7} README.mysql-license
 
+
 %clean
 rm -rf %{buildroot}
+
 
 %pre server
 /usr/sbin/groupadd -g 27 mysql >/dev/null 2>&1 || :
 /usr/sbin/useradd -M -o -r -d /var/lib/mysql -s /bin/bash \
     -c "MySQL Server" -u 27 mysql -g mysql > /dev/null 2>&1 || :
 
+
 %post libs
 /sbin/ldconfig
+
 
 %post server
 if [ $1 = 1 ]; then
@@ -477,16 +499,19 @@ fi
 /bin/chmod 0755 /var/lib/mysql
 /bin/touch /var/log/mysqld.log
 
+
 %preun server
 if [ $1 = 0 ]; then
     /sbin/service mysqld stop >/dev/null 2>&1
     /sbin/chkconfig --del mysqld
 fi
 
+
 %postun libs
 if [ $1 = 0 ] ; then
     /sbin/ldconfig
 fi
+
 
 %postun server
 if [ $1 -ge 1 ]; then
@@ -530,6 +555,7 @@ fi
 
 %{_libdir}/mysql/mysql_config
 
+
 %files libs
 %defattr(-,root,root)
 %doc README COPYING README.mysql-license
@@ -565,6 +591,7 @@ fi
 %lang(sv) %{_datadir}/mysql/swedish
 %lang(uk) %{_datadir}/mysql/ukrainian
 %{_datadir}/mysql/charsets
+
 
 %files server
 %defattr(-,root,root)
@@ -649,6 +676,7 @@ fi
 %attr(0755,mysql,mysql) %dir /var/lib/mysqllogs
 %attr(0755,mysql,mysql) %dir /var/log/mysql/
 
+
 %files devel
 %defattr(-,root,root)
 %{_includedir}/mysql
@@ -656,10 +684,12 @@ fi
 %{_libdir}/mysql/libmysqlclient.so
 %{_libdir}/mysql/libmysqlclient_r.so
 
+
 %files embedded
 %defattr(-,root,root)
 %doc README COPYING README.mysql-license
 %{_libdir}/mysql/libmysqld.so.*
+
 
 %files embedded-devel
 %defattr(-,root,root)
@@ -669,9 +699,11 @@ fi
 %{_mandir}/man1/mysql_client_test_embedded.1*
 %{_mandir}/man1/mysqltest_embedded.1*
 
+
 %files bench
 %defattr(-,root,root)
 %{_datadir}/sql-bench
+
 
 %files test
 %defattr(-,root,root)
@@ -681,7 +713,11 @@ fi
 
 %{_mandir}/man1/mysql_client_test.1*
 
+
 %changelog
+* Thu Jul 31 2014 Carl George <carl.george@rackspace.com> - 5.5.39-1.ius
+- Latest sources from upstream
+
 * Tue Jun 03 2014 Ben Harper <ben.harper@rackspace.com> - 5.5.38-1.ius
 - Latest sources from upstream
 
