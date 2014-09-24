@@ -2,7 +2,7 @@
 %global basever 5.5
 
 Name: mysql55
-Version: 5.5.39
+Version: 5.5.40
 Release: 1.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
@@ -715,6 +715,9 @@ fi
 
 
 %changelog
+* Wed Sep 24 2014 Carl George <carl.george@rackspace.com> - 5.5.40-1.ius
+- Latest upstream
+
 * Thu Jul 31 2014 Carl George <carl.george@rackspace.com> - 5.5.39-1.ius
 - Latest sources from upstream
 - While compiling libmysqld.so, disable explicit inclusion of probes_mysql.o
