@@ -3,7 +3,7 @@
 
 Name: mysql55
 Version: 5.5.40
-Release: 1.ius%{?dist}
+Release: 2.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
 URL: http://www.mysql.com
@@ -715,6 +715,9 @@ fi
 
 
 %changelog
+* Mon Nov 10 2014 Ben Harper <ben.harper@rackspace.com> - 5.5-40-2.ius
+- update mysql.init, see LP bug 1390900
+
 * Wed Sep 24 2014 Carl George <carl.george@rackspace.com> - 5.5.40-1.ius
 - Latest upstream
 
