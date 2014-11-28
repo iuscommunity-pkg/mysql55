@@ -2,8 +2,8 @@
 %global basever 5.5
 
 Name: mysql55
-Version: 5.5.40
-Release: 2.ius%{?dist}
+Version: 5.5.41
+Release: 1.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
 URL: http://www.mysql.com
@@ -715,6 +715,9 @@ fi
 
 
 %changelog
+* Fri Nov 28 2014 Carl George <carl.george@rackspace.com> - 5.5.41-1.ius
+- Latest upstream
+
 * Mon Nov 10 2014 Ben Harper <ben.harper@rackspace.com> - 5.5-40-2.ius
 - update mysql.init, see LP bug 1390900
 
