@@ -3,7 +3,7 @@
 
 Name: mysql55
 Version: 5.5.41
-Release: 1.ius%{?dist}
+Release: 2.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
 URL: http://www.mysql.com
@@ -42,6 +42,10 @@ Patch7: mysql-versioning.patch
 Patch8: mysql-dubious-exports.patch
 Patch9: mysql-disable-test.patch
 Patch22: mysql-innodbwarn.patch
+
+# adapted from patch created by Andrew Garner
+#https://bugs.launchpad.net/ius/+bug/1397306
+Patch200: mysql_bug_75245_5541.patch
 
 # IUS Patches
 #Patch300: mysql-5.5.8-bug58350.patch
@@ -250,6 +254,7 @@ cp %{SOURCE101} .
 %patch8 -p1
 %patch9 -p1
 %patch22 -p1
+%patch200 -p0
 
 # ius patches
 #%patch300 -p1 -b .bug58350 
@@ -715,6 +720,9 @@ fi
 
 
 %changelog
+* Thu Dec 18 2014 Ben Harper <ben.harper@rackspace.com> - 5.5.41-2.ius
+- Add Patch200
+
 * Fri Nov 28 2014 Carl George <carl.george@rackspace.com> - 5.5.41-1.ius
 - Latest upstream
 
