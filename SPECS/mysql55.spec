@@ -42,10 +42,6 @@ Patch8: mysql-dubious-exports.patch
 Patch9: mysql-disable-test.patch
 Patch22: mysql-innodbwarn.patch
 
-# adapted from patch created by Andrew Garner
-#https://bugs.launchpad.net/ius/+bug/1397306
-Patch200: mysql_bug_75245_5541.patch
-
 #Disable SSL_OP_NO_COMPRESSION as it is not available in openssl for RHEL 5
 Patch318: mysql-5.5.31-disable_SSL_OP_NO_COMPRESSION.patch
 
@@ -249,7 +245,6 @@ cp %{SOURCE101} .
 %patch8 -p1
 %patch9 -p1
 %patch22 -p1
-%patch200 -p0
 
 %if 0%{?rhel} < 6
 %patch318 -p1
@@ -715,7 +710,7 @@ fi
 %changelog
 * Tue Feb 03 2015 Carl George <carl.george@rackspace.com> - 5.5.42-1.ius
 - Latest upstream
-- Patch4 resolved upstream
+- Patch4 and Patch200 resolved upstream
 
 * Thu Dec 18 2014 Ben Harper <ben.harper@rackspace.com> - 5.5.41-2.ius
 - Add Patch200
