@@ -2,8 +2,8 @@
 %global basever 5.5
 
 Name: mysql55
-Version: 5.5.41
-Release: 2.ius%{?dist}
+Version: 5.5.42
+Release: 1.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
 URL: http://www.mysql.com
@@ -35,7 +35,6 @@ Source102: mysql.logrotate
 Patch1: mysql-errno.patch
 Patch2: mysql-strmov.patch
 Patch3: mysql-install-test.patch
-Patch4: mysql-expired-certs.patch
 Patch5: mysql-stack-guard.patch
 Patch6: mysql-5.5.28-chain-certs.patch
 Patch7: mysql-versioning.patch
@@ -247,7 +246,6 @@ cp %{SOURCE101} .
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
@@ -720,6 +718,10 @@ fi
 
 
 %changelog
+* Tue Feb 03 2015 Carl George <carl.george@rackspace.com> - 5.5.42-1.ius
+- Latest upstream
+- Patch4 resolved upstream
+
 * Thu Dec 18 2014 Ben Harper <ben.harper@rackspace.com> - 5.5.41-2.ius
 - Add Patch200
 
