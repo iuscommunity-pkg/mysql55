@@ -46,9 +46,6 @@ Patch22: mysql-innodbwarn.patch
 #https://bugs.launchpad.net/ius/+bug/1397306
 Patch200: mysql_bug_75245_5541.patch
 
-# IUS Patches
-#Patch300: mysql-5.5.8-bug58350.patch
-
 #Disable SSL_OP_NO_COMPRESSION as it is not available in openssl for RHEL 5
 Patch318: mysql-5.5.31-disable_SSL_OP_NO_COMPRESSION.patch
 
@@ -254,8 +251,6 @@ cp %{SOURCE101} .
 %patch22 -p1
 %patch200 -p0
 
-# ius patches
-#%patch300 -p1 -b .bug58350 
 %if 0%{?rhel} < 6
 %patch318 -p1
 %endif
