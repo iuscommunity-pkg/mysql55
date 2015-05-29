@@ -43,7 +43,8 @@ Patch9: mysql-disable-test.patch
 Patch22: mysql-innodbwarn.patch
 
 #Disable SSL_OP_NO_COMPRESSION as it is not available in openssl for RHEL 5
-Patch318: mysql-5.5.31-disable_SSL_OP_NO_COMPRESSION.patch
+# Fixed upstream in 5.5.44
+# Patch318: mysql-5.5.31-disable_SSL_OP_NO_COMPRESSION.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: gperf, perl, readline-devel, openssl-devel
@@ -245,10 +246,6 @@ cp %{SOURCE101} .
 %patch8 -p1
 %patch9 -p1
 %patch22 -p1
-
-%if 0%{?rhel} < 6
-%patch318 -p1
-%endif
 
 # workaround for upstream bug #56342
 rm -f mysql-test/t/ssl_8k_key-master.opt
@@ -710,6 +707,7 @@ fi
 %changelog
 * Fri May 29 2015 Carl George <carl.george@rackspace.com> - 5.5.44-1.ius
 - Latest upstream
+- Patch318 fixed upstream
 
 * Tue Apr 07 2015 Carl George <carl.george@rackspace.com> - 5.5.43-1.ius
 - Latest upstream
