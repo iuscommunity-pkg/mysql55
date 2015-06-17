@@ -3,7 +3,7 @@
 
 Name: mysql55
 Version: 5.5.44
-Release: 1.ius%{?dist}
+Release: 2.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
 URL: http://www.mysql.com
@@ -45,6 +45,8 @@ Patch22: mysql-innodbwarn.patch
 #Disable SSL_OP_NO_COMPRESSION as it is not available in openssl for RHEL 5
 # Fixed upstream in 5.5.44
 # Patch318: mysql-5.5.31-disable_SSL_OP_NO_COMPRESSION.patch
+
+Patch319: community-mysql-dh1024.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: gperf, perl, readline-devel, openssl-devel
@@ -246,6 +248,7 @@ cp %{SOURCE101} .
 %patch8 -p1
 %patch9 -p1
 %patch22 -p1
+%patch319 -p1
 
 # workaround for upstream bug #56342
 rm -f mysql-test/t/ssl_8k_key-master.opt
@@ -705,6 +708,10 @@ fi
 
 
 %changelog
+* Wed Jun 17 2015 Ben Harper <ben.harper@rackspace.com> - 5.5.44-2.ius
+- add Patch319 from http://pkgs.fedoraproject.org/cgit/community-mysql.git/tree/community-mysql-dh1024.patch
+  see https://github.com/iuscommunity-pkg/mysql55/issues/4
+
 * Fri May 29 2015 Carl George <carl.george@rackspace.com> - 5.5.44-1.ius
 - Latest upstream
 - Patch318 fixed upstream
