@@ -2,7 +2,7 @@
 
 Name: mysql55
 Version: 5.5.46
-Release: 1.ius%{?dist}
+Release: 2.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
 URL: http://www.mysql.com
@@ -58,7 +58,7 @@ BuildRequires: time procps
 BuildRequires: perl(Socket)
 
 Requires: grep, fileutils
-Requires: %{name}-libs = %{version}-%{release}
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: bash
 
 # MySQL (with caps) is upstream's spelling of their own RPMs for mysql
@@ -69,6 +69,7 @@ Obsoletes: mysql-cluster < 5.1.44
 # IUS-isms
 Conflicts: mysql < %{basever}
 Provides: mysql = %{version}-%{release}
+Provides: mysql%{?_isa} = %{version}-%{release}
 
 # Added as a convenience, mysql51 doesn't require mysqlclient15
 # but all the packages built against mysql 5.0/5.1 do
@@ -101,6 +102,7 @@ Requires: /sbin/ldconfig
 # IUS-isms
 Conflicts: mysql-libs < %{basever}
 Provides: mysql-libs = %{version}-%{release}
+Provides: mysql-libs%{?_isa} = %{version}-%{release}
 Provides: config(mysql-libs) = %{version}-%{release}
 
 
@@ -115,8 +117,8 @@ MySQL server.
 
 Summary: The MySQL server and related files
 Group: Applications/Databases
-Requires: %{name} = %{version}-%{release}
-Requires: %{name}-libs = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: sh-utils
 Requires(pre): /usr/sbin/useradd
 Requires(post): chkconfig
@@ -131,6 +133,7 @@ Conflicts: MySQL-server
 # IUS-isms
 Conflicts: mysql-server < %{basever}
 Provides: mysql-server = %{version}-%{release}
+Provides: mysql-server%{?_isa} = %{version}-%{release}
 Provides: config(mysql-server) = %{version}-%{release}
 
 
@@ -145,14 +148,15 @@ the MySQL server and some accompanying files and directories.
 
 Summary: Files for development of MySQL applications
 Group: Applications/Databases
-Requires: %{name} = %{version}-%{release}
-Requires: %{name}-libs = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: openssl-devel
 Conflicts: MySQL-devel
 
 # IUS-isms
 Conflicts: mysql-devel < %{basever}
 Provides: mysql-devel = %{version}-%{release}
+Provides: mysql-devel%{?_isa} = %{version}-%{release}
 
 
 %description devel
@@ -169,6 +173,7 @@ Group: Applications/Databases
 # IUS-isms
 Conflicts: mysql-embedded < %{basever}
 Provides: mysql-embedded = %{version}-%{release}
+Provides: mysql-embedded%{?_isa} = %{version}-%{release}
 
 
 %description embedded
@@ -181,12 +186,13 @@ into a client application instead of running as a separate process.
 
 Summary: Development files for MySQL as an embeddable library
 Group: Applications/Databases
-Requires: %{name}-embedded = %{version}-%{release}
-Requires: %{name}-devel = %{version}-%{release}
+Requires: %{name}-embedded%{?_isa} = %{version}-%{release}
+Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 
 # IUS-isms
 Conflicts: mysql-embedded-devel < %{basever}
 Provides: mysql-embedded-devel = %{version}-%{release}
+Provides: mysql-embedded-devel%{?_isa} = %{version}-%{release}
 
 
 %description embedded-devel
@@ -199,12 +205,13 @@ the embedded version of the MySQL server.
 
 Summary: MySQL benchmark scripts and data
 Group: Applications/Databases
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 Conflicts: MySQL-bench
 
 # IUS-isms
 Conflicts: mysql-bench < %{basever}
 Provides: mysql-bench = %{version}-%{release}
+Provides: mysql-bench%{?_isa} = %{version}-%{release}
 
 
 %description bench
@@ -217,14 +224,15 @@ MySQL.
 
 Summary: The test suite distributed with MySQL
 Group: Applications/Databases
-Requires: %{name} = %{version}-%{release}
-Requires: %{name}-libs = %{version}-%{release}
-Requires: %{name}-server = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Requires: %{name}-server%{?_isa} = %{version}-%{release}
 Conflicts: MySQL-test
 
 # IUS-isms
 Conflicts: mysql-test < %{basever}
 Provides: mysql-test = %{version}-%{release}
+Provides: mysql-test%{?_isa} = %{version}-%{release}
 
 
 %description test
@@ -707,6 +715,9 @@ fi
 
 
 %changelog
+* Fri Nov 13 2015 Carl George <carl.george@rackspace.com> - 5.5.46-2.ius
+- Add _isa macro to provides/requires to assist with dependency resolution
+
 * Thu Oct 01 2015 Carl George <carl.george@rackspace.com> - 5.5.46-1.ius
 - Latest upstream
 
