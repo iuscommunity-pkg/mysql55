@@ -1,8 +1,8 @@
 %global basever 5.5
 
 Name: mysql55
-Version: 5.5.46
-Release: 2.ius%{?dist}
+Version: 5.5.47
+Release: 1.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
 URL: http://www.mysql.com
@@ -715,6 +715,9 @@ fi
 
 
 %changelog
+* Mon Dec 07 2015 Ben Harper <ben.harper@rackspace.com> - 5.5.47-1.ius
+- Latest upstream
+
 * Fri Nov 13 2015 Carl George <carl.george@rackspace.com> - 5.5.46-2.ius
 - Add _isa macro to provides/requires to assist with dependency resolution
 
