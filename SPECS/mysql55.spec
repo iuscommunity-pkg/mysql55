@@ -825,7 +825,7 @@ fi
 - Change path of mysqllogs to /var/log/mysql per LP#1026008
 - Removing logrotate for slow-log
 
-* Thu Jun 04 2012 Jeffrey Ness <jeffrey.ness@rackspace.com> 5.5.25-2.a.ius
+* Mon Jun 04 2012 Jeffrey Ness <jeffrey.ness@rackspace.com> 5.5.25-2.a.ius
 - Latest sources from upstream, full changelog found at:
   http://dev.mysql.com/doc/refman/5.5/en/news-5-5-25a.html
 - A regression bug in the optimizer could cause excessive disk usage for 
@@ -844,11 +844,11 @@ fi
 - Latest sources from upstream, full changelog found at:
   http://dev.mysql.com/doc/refman/5.5/en/news-5-5-23.html
 
-* Mon Feb 21 2012 BJ Dierkes <wdierkes@rackspace.com> 5.5.22-1.ius
+* Tue Feb 21 2012 BJ Dierkes <wdierkes@rackspace.com> 5.5.22-1.ius
 - Latest sources from upstream, full changelog found at:
   http://dev.mysql.com/doc/refman/5.5/en/news-5-5-22.html
 
-* Mon Feb 21 2012 Jeffrey Ness <jeffrey.ness@rackspace.com> 5.5.21-1.ius
+* Tue Feb 21 2012 Jeffrey Ness <jeffrey.ness@rackspace.com> 5.5.21-1.ius
 - Latest sources from upstream, full changelog found at:
   http://dev.mysql.com/doc/refman/5.5/en/news-5-5-21.html
 
@@ -898,7 +898,7 @@ fi
 - Latest sources from upstream, full changelog found at:
   http://dev.mysql.com/doc/refman/5.5/en/news-5-5-13.html
 
-* Tue May 09 2011 Jeffrey Ness <jeffrey.ness@rackspace.com> 5.5.12-1.ius
+* Mon May 09 2011 Jeffrey Ness <jeffrey.ness@rackspace.com> 5.5.12-1.ius
 - Latest sources from upstream, full changelog found at:
   http://dev.mysql.com/doc/refman/5.5/en/news-5-5-12.html
 
@@ -1761,7 +1761,7 @@ Resolves: #199368
 - 3.23.28 (gamma)
 - remove old patches, as they are now upstreamed
 
-* Thu Nov 14 2000 Trond Eivind Glomsrd <teg@redhat.com>
+* Tue Nov 14 2000 Trond Eivind Glomsrd <teg@redhat.com>
 - Add a requirement for a new glibc (#20735)
 - build on IA64
 
@@ -1801,7 +1801,7 @@ Resolves: #199368
 - Don't try to include no-longer-existing PUBLIC file
   as doc (#17532)
 
-* Thu Sep 12 2000 Trond Eivind Glomsrd <teg@redhat.com>
+* Tue Sep 12 2000 Trond Eivind Glomsrd <teg@redhat.com>
 - rename config file to /etc/my.cnf, which is what
   mysqld wants... doh. (#17432)
 - include a changed safe_mysqld, so the pid file option
@@ -1833,7 +1833,7 @@ Resolves: #199368
 * Sat Aug 05 2000 Bill Nottingham <notting@redhat.com>
 - condrestart fixes
 
-* Mon Aug 01 2000 Trond Eivind Glomsrd <teg@redhat.com>
+* Tue Aug 01 2000 Trond Eivind Glomsrd <teg@redhat.com>
 - 3.23.22. Disable the old patches, they're now in.
 
 * Thu Jul 27 2000 Trond Eivind Glomsrd <teg@redhat.com>
@@ -1892,7 +1892,7 @@ Resolves: #199368
 - include a /etc/my.conf (empty, FTTB)
 - add conditional restart to spec file
 
-* Tue Jul  2 2000 Jakub Jelinek <jakub@redhat.com>
+* Sun Jul  2 2000 Jakub Jelinek <jakub@redhat.com>
 - Rebuild with new C++
 
 * Fri Jun 30 2000 Trond Eivind Glomsrd <teg@redhat.com>
