@@ -268,12 +268,12 @@ cp %{SOURCE8} libmysql/libmysql.version
 
 # fail quickly and obviously if user tries to build as root
 %if %runselftest
-	if [ x"`id -u`" = x0 ]; then
-		echo "mysql's regression tests fail if run as root."
-		echo "If you really need to build the RPM as root, use"
-		echo "--define='runselftest 0' to skip the regression tests."
-		exit 1
-	fi
+        if [ x"`id -u`" = x0 ]; then
+                echo "mysql's regression tests fail if run as root."
+                echo "If you really need to build the RPM as root, use"
+                echo "--define='runselftest 0' to skip the regression tests."
+                exit 1
+        fi
 %endif
 
 CFLAGS="%{optflags} -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE"
@@ -295,29 +295,29 @@ export CFLAGS CXXFLAGS
 # so we can't use %%{_datadir} and so forth here.
 
 cmake . -DBUILD_CONFIG=mysql_release \
-	-DFEATURE_SET="community" \
-    -DCOMPILATION_COMMENT="Distributed by The IUS Community Project" \
-	-DINSTALL_LAYOUT=RPM \
-	-DCMAKE_INSTALL_PREFIX="%{_prefix}" \
-	-DINSTALL_INCLUDEDIR=include/mysql \
-	-DINSTALL_INFODIR=share/info \
-	-DINSTALL_LIBDIR="%{_lib}/mysql" \
-	-DINSTALL_MANDIR=share/man \
-	-DINSTALL_MYSQLSHAREDIR=share/mysql \
-	-DINSTALL_MYSQLTESTDIR=share/mysql-test \
-	-DINSTALL_PLUGINDIR="%{_lib}/mysql/plugin" \
-	-DINSTALL_SBINDIR=libexec \
-	-DINSTALL_SCRIPTDIR=bin \
-	-DINSTALL_SQLBENCHDIR=share \
-	-DINSTALL_SUPPORTFILESDIR=share/mysql \
-	-DMYSQL_DATADIR="/var/lib/mysql" \
-	-DMYSQL_UNIX_ADDR="/var/lib/mysql/mysql.sock" \
-	-DENABLED_LOCAL_INFILE=ON \
-	-DENABLE_DTRACE=ON \
-	-DWITH_EMBEDDED_SERVER=ON \
-	-DWITH_READLINE=ON \
-	-DWITH_SSL=system \
-	-DWITH_ZLIB=system
+        -DFEATURE_SET="community" \
+        -DCOMPILATION_COMMENT="Distributed by The IUS Community Project" \
+        -DINSTALL_LAYOUT=RPM \
+        -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
+        -DINSTALL_INCLUDEDIR=include/mysql \
+        -DINSTALL_INFODIR=share/info \
+        -DINSTALL_LIBDIR="%{_lib}/mysql" \
+        -DINSTALL_MANDIR=share/man \
+        -DINSTALL_MYSQLSHAREDIR=share/mysql \
+        -DINSTALL_MYSQLTESTDIR=share/mysql-test \
+        -DINSTALL_PLUGINDIR="%{_lib}/mysql/plugin" \
+        -DINSTALL_SBINDIR=libexec \
+        -DINSTALL_SCRIPTDIR=bin \
+        -DINSTALL_SQLBENCHDIR=share \
+        -DINSTALL_SUPPORTFILESDIR=share/mysql \
+        -DMYSQL_DATADIR="/var/lib/mysql" \
+        -DMYSQL_UNIX_ADDR="/var/lib/mysql/mysql.sock" \
+        -DENABLED_LOCAL_INFILE=ON \
+        -DENABLE_DTRACE=ON \
+        -DWITH_EMBEDDED_SERVER=ON \
+        -DWITH_READLINE=ON \
+        -DWITH_SSL=system \
+        -DWITH_ZLIB=system
 
 gcc $CFLAGS $LDFLAGS -o scriptstub "-DLIBDIR=\"%{_libdir}/mysql\"" %{SOURCE4}
 
@@ -330,8 +330,8 @@ ar -x ../libmysqld.a
 # these result in missing dependencies: (filed upstream as bug 59104)
 rm -f sql_binlog.cc.o rpl_utility.cc.o
 gcc $CFLAGS $LDFLAGS -shared -Wl,-soname,libmysqld.so.0 -o libmysqld.so.0.0.1 \
-	*.o \
-	-lpthread -laio -lcrypt -lssl -lcrypto -lz -lrt -lstdc++ -ldl -lm -lc
+        *.o \
+        -lpthread -laio -lcrypt -lssl -lcrypto -lz -lrt -lstdc++ -ldl -lm -lc
 # this is to check that we built a complete library
 cp %{SOURCE9} .
 ln -s libmysqld.so.0.0.1 libmysqld.so.0
@@ -397,7 +397,7 @@ esac
 # so resort to this blunt instrument.  While at it, let's not reference
 # libmysqlclient_r anymore either.
 sed -e 's/-lprobes_mysql//' -e 's/-lmysqlclient_r/-lmysqlclient/' \
-	${RPM_BUILD_ROOT}%{_bindir}/mysql_config >mysql_config.tmp
+        ${RPM_BUILD_ROOT}%{_bindir}/mysql_config >mysql_config.tmp
 cp -f mysql_config.tmp ${RPM_BUILD_ROOT}%{_bindir}/mysql_config
 chmod 755 ${RPM_BUILD_ROOT}%{_bindir}/mysql_config
 
