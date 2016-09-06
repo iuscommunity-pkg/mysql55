@@ -1,7 +1,7 @@
 %global basever 5.5
 
 Name: mysql55
-Version: 5.5.51
+Version: 5.5.52
 Release: 1.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
@@ -715,6 +715,9 @@ fi
 
 
 %changelog
+* Tue Sep 06 2016 Ben Harper <ben.harper@rackspace.com> - 5.5.52-1.ius
+- Latest upstream
+
 * Fri Jul 29 2016 Ben Harper <ben.harper@rackspace.com> - 5.5.51-1.ius
 - Latest upstream
 
