@@ -374,7 +374,8 @@ cd ../..
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/var/log/mysql \
          %{buildroot}/var/lib/mysqllogs \
-         %{buildroot}/var/lib/mysqltmp
+         %{buildroot}/var/lib/mysqltmp \
+         %{buildroot}/var/lib/mysql-files
 
 make DESTDIR=%{buildroot} install
 
@@ -671,6 +672,7 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/mysqld
 %attr(0755,mysql,mysql) %dir /var/run/mysqld
 %attr(0755,mysql,mysql) %dir /var/lib/mysql
+%attr(0750,mysql,mysql) %dir /var/lib/mysql-files
 %attr(0640,mysql,mysql) %config(noreplace) %verify(not md5 size mtime) /var/log/mysqld.log
 %attr(0755,mysql,mysql) %dir %{_localstatedir}/lib/mysqltmp/
 %attr(0755,mysql,mysql) %dir /var/lib/mysqllogs
@@ -717,6 +719,8 @@ fi
 %changelog
 * Wed Oct 12 2016 Ben Harper <ben.harper@rackspace.com> - 5.5.53-1.ius
 - Latest upstream
+- added /var/lib/mysql-files, see:
+  https://dev.mysql.com/doc/relnotes/mysql/5.5/en/news-5-5-53.html
 
 * Tue Sep 06 2016 Ben Harper <ben.harper@rackspace.com> - 5.5.52-1.ius
 - Latest upstream
