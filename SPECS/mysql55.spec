@@ -2,7 +2,7 @@
 
 Name: mysql55
 Version: 5.5.54
-Release: 1.ius%{?dist}
+Release: 2.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
 URL: http://www.mysql.com
@@ -47,6 +47,8 @@ Patch22: mysql-innodbwarn.patch
 
 # Fixed upstream in 5.5.45
 #Patch319: community-mysql-dh1024.patch
+
+Patch320: mysql-5.5.54-fix-2017.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: gperf, perl, readline-devel, openssl-devel
@@ -256,6 +258,7 @@ cp %{SOURCE101} .
 %patch8 -p1
 %patch9 -p1
 %patch22 -p1
+%patch320 -p1
 
 # workaround for upstream bug #56342
 rm -f mysql-test/t/ssl_8k_key-master.opt
@@ -717,6 +720,9 @@ fi
 
 
 %changelog
+* Tue Mar 21 2017 Ben Harper <ben.harper@rackspace.com> - 5.5.54-2.ius
+- add Patch320
+
 * Tue Dec 13 2016 Carl George <carl.george@rackspace.com> - 5.5.54-1.ius
 - Latest upstream
 
