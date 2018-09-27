@@ -1,17 +1,19 @@
 Name: mysql55
-Version: 5.5.59
+Version: 5.5.61
 Release: 1.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
 URL: http://www.mysql.com
 # exceptions allow client libraries to be linked with most open source SW,
 # not only GPL code.  See README.mysql-license
-License: GPLv2 with exceptions
+# Some innobase code from Percona and Google is under BSD license
+# Some code related to test-suite is under LGPLv2
+License: GPLv2 with exceptions and LGPLv2 and BSD
 
 # Regression tests take a long time, you can skip 'em with this
 %{!?runselftest:%global runselftest 1}
 
-Source0: http://dev.mysql.com/get/Downloads/MySQL-5.5/mysql-%{version}.tar.gz
+Source0: https://cdn.mysql.com/Downloads/MySQL-5.5/mysql-%{version}.tar.gz
 Source1: generate-tarball.sh
 Source2: mysql.init
 Source3: my.cnf
@@ -424,8 +426,6 @@ rm -f %{buildroot}%{_datadir}/mysql/mysql.server
 rm -f %{buildroot}%{_datadir}/mysql/mysqld_multi.server
 rm -f %{buildroot}%{_datadir}/mysql/mysql-log-rotate
 rm -f %{buildroot}%{_mandir}/man1/comp_err.1*
-rm -f %{buildroot}%{_mandir}/man1/mysql-stress-test.pl.1*
-rm -f %{buildroot}%{_mandir}/man1/mysql-test-run.pl.1*
 
 mkdir -p %{buildroot}/etc/ld.so.conf.d
 echo "%{_libdir}/mysql" > %{buildroot}/etc/ld.so.conf.d/%{name}-%{_arch}.conf
@@ -470,6 +470,7 @@ fi
 
 %files
 %doc README COPYING README.mysql-license
+%doc storage/innobase/COPYING.Percona storage/innobase/COPYING.Google
 %doc README.mysql-docs
 
 %{_bindir}/msql2mysql
@@ -506,6 +507,7 @@ fi
 
 %files libs
 %doc README COPYING README.mysql-license
+%doc storage/innobase/COPYING.Percona storage/innobase/COPYING.Google
 # although the default my.cnf contains only server settings, we put it in the
 # libs package because it can be used for client settings too.
 %config(noreplace) /etc/my.cnf
@@ -595,7 +597,6 @@ fi
 %{_mandir}/man1/mysqlimport.1*
 %{_mandir}/man1/mysqlman.1*
 %{_mandir}/man1/mysql_setpermission.1*
-%{_mandir}/man1/mysqltest.1*
 %{_mandir}/man1/innochecksum.1*
 %{_mandir}/man1/perror.1*
 %{_mandir}/man1/replace.1*
@@ -633,6 +634,7 @@ fi
 
 %files embedded
 %doc README COPYING README.mysql-license
+%doc storage/innobase/COPYING.Percona storage/innobase/COPYING.Google
 %{_libdir}/mysql/libmysqld.so.*
 
 
@@ -640,8 +642,6 @@ fi
 %{_libdir}/mysql/libmysqld.so
 %{_bindir}/mysql_client_test_embedded
 %{_bindir}/mysqltest_embedded
-%{_mandir}/man1/mysql_client_test_embedded.1*
-%{_mandir}/man1/mysqltest_embedded.1*
 
 
 %files bench
@@ -653,10 +653,11 @@ fi
 %{_bindir}/my_safe_process
 %attr(-,mysql,mysql) %{_datadir}/mysql-test
 
-%{_mandir}/man1/mysql_client_test.1*
-
 
 %changelog
+* Thu Sep 27 2018 Carl George <carl@george.computer> - 5.5.61-1.ius
+- Latest upstream
+
 * Mon Jan 15 2018 Ben Harper <ben.harper@rackspace.com> - 5.5.59-1.ius
 - Latest upstream
 
