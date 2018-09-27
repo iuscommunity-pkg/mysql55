@@ -50,7 +50,7 @@ BuildRequires: time procps
 BuildRequires: perl(Socket), perl(Time::HiRes)
 
 Requires: grep, fileutils, bash
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 
 # MySQL (with caps) is upstream's spelling of their own RPMs for mysql
 Conflicts: MySQL
@@ -75,6 +75,7 @@ contains the standard MySQL client programs and generic MySQL files.
 %package libs
 Summary: The shared libraries required for MySQL clients
 Group: Applications/Databases
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 # IUS-isms
 Provides: mysql-libs = %{version}-%{release}
 Provides: mysql-libs%{?_isa} = %{version}-%{release}
@@ -88,11 +89,21 @@ to use any other MySQL package or any clients that need to connect to a
 MySQL server.
 
 
+%package common
+Summary: The shared files required for MySQL server and client
+
+
+%description common
+The mysql-common package provides the essential shared files for any
+MySQL program. You will need to install this package to use any other
+MySQL package.
+
+
 %package server
 Summary: The MySQL server and related files
 Group: Applications/Databases
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 Requires: sh-utils
 Requires(pre): /usr/sbin/useradd
 Requires(post): chkconfig
@@ -188,7 +199,7 @@ MySQL.
 Summary: The test suite distributed with MySQL
 Group: Applications/Databases
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 Requires: %{name}-server%{?_isa} = %{version}-%{release}
 Conflicts: MySQL-test
 # IUS-isms
@@ -515,6 +526,8 @@ fi
 %{_libdir}/mysql/libmysqlclient.so.*
 /etc/ld.so.conf.d/*
 
+
+%files common
 %dir %{_datadir}/mysql
 %{_datadir}/mysql/english
 %lang(cs) %{_datadir}/mysql/czech
@@ -657,6 +670,7 @@ fi
 %changelog
 * Thu Sep 27 2018 Carl George <carl@george.computer> - 5.5.61-1.ius
 - Latest upstream
+- Move shared files to common subpackage
 
 * Mon Jan 15 2018 Ben Harper <ben.harper@rackspace.com> - 5.5.59-1.ius
 - Latest upstream
