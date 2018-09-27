@@ -41,21 +41,13 @@ Patch8: mysql-dubious-exports.patch
 Patch9: mysql-disable-test.patch
 Patch22: mysql-innodbwarn.patch
 
-#Disable SSL_OP_NO_COMPRESSION as it is not available in openssl for RHEL 5
-# Fixed upstream in 5.5.44
-# Patch318: mysql-5.5.31-disable_SSL_OP_NO_COMPRESSION.patch
-
-# Fixed upstream in 5.5.45
-#Patch319: community-mysql-dh1024.patch
-
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: gperf, perl, readline-devel, openssl-devel
 BuildRequires: gcc-c++, cmake, ncurses-devel, zlib-devel, libaio-devel
 BuildRequires: systemtap-sdt-devel
 # make test requires time and ps
 BuildRequires: time procps
-# Socket is needed to run regression tests
-BuildRequires: perl(Socket)
+# perl modules needed to run regression tests
+BuildRequires: perl(Socket), perl(Time::HiRes)
 
 Requires: grep, fileutils
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
@@ -70,17 +62,7 @@ Obsoletes: mysql-cluster < 5.1.44
 Conflicts: mysql < %{basever}
 Provides: mysql = %{version}-%{release}
 Provides: mysql%{?_isa} = %{version}-%{release}
-
-# Added as a convenience, mysql51 doesn't require mysqlclient15
-# but all the packages built against mysql 5.0/5.1 do
-%if 0%{?el5}
-Requires: mysqlclient15
-%endif
-
-%if 0%{?el6}
-BuildRequires: perl-Time-HiRes
 Requires: mysqlclient16
-%endif
 
 # Working around perl dependency checking bug in rpm FTTB. Remove later.
 %global __perl_requires %{SOURCE999}
@@ -371,7 +353,6 @@ cd ../..
 
 
 %install
-rm -rf %{buildroot}
 mkdir -p %{buildroot}/var/log/mysql \
          %{buildroot}/var/lib/mysqllogs \
          %{buildroot}/var/lib/mysqltmp \
@@ -479,10 +460,6 @@ cp %{SOURCE6} README.mysql-docs
 cp %{SOURCE7} README.mysql-license
 
 
-%clean
-rm -rf %{buildroot}
-
-
 %pre server
 /usr/sbin/groupadd -g 27 mysql >/dev/null 2>&1 || :
 /usr/sbin/useradd -M -o -r -d /var/lib/mysql -s /bin/bash \
@@ -521,7 +498,6 @@ fi
 
 
 %files
-%defattr(-,root,root)
 %doc README COPYING README.mysql-license
 %doc README.mysql-docs
 
@@ -558,7 +534,6 @@ fi
 
 
 %files libs
-%defattr(-,root,root)
 %doc README COPYING README.mysql-license
 # although the default my.cnf contains only server settings, we put it in the
 # libs package because it can be used for client settings too.
@@ -595,7 +570,6 @@ fi
 
 
 %files server
-%defattr(-,root,root)
 %doc support-files/*.cnf my-55-verbose.cnf
 %config(noreplace) %{_sysconfdir}/logrotate.d/mysqld
 
@@ -680,7 +654,6 @@ fi
 
 
 %files devel
-%defattr(-,root,root)
 %{_includedir}/mysql
 %{_datadir}/aclocal/mysql.m4
 %{_libdir}/mysql/libmysqlclient.so
@@ -688,13 +661,11 @@ fi
 
 
 %files embedded
-%defattr(-,root,root)
 %doc README COPYING README.mysql-license
 %{_libdir}/mysql/libmysqld.so.*
 
 
 %files embedded-devel
-%defattr(-,root,root)
 %{_libdir}/mysql/libmysqld.so
 %{_bindir}/mysql_client_test_embedded
 %{_bindir}/mysqltest_embedded
@@ -703,12 +674,10 @@ fi
 
 
 %files bench
-%defattr(-,root,root)
 %{_datadir}/sql-bench
 
 
 %files test
-%defattr(-,root,root)
 %{_bindir}/mysql_client_test
 %{_bindir}/my_safe_process
 %attr(-,mysql,mysql) %{_datadir}/mysql-test
