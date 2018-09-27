@@ -52,9 +52,6 @@ BuildRequires: perl(Socket), perl(Time::HiRes)
 Requires: grep, fileutils, bash
 Requires: %{name}-common%{?_isa} = %{version}-%{release}
 
-# MySQL (with caps) is upstream's spelling of their own RPMs for mysql
-Conflicts: MySQL
-
 # IUS-isms
 Provides: mysql = %{version}-%{release}
 Provides: mysql%{?_isa} = %{version}-%{release}
@@ -113,7 +110,6 @@ Requires(preun): initscripts
 Requires(postun): initscripts
 # mysqlhotcopy needs DBI/DBD support
 Requires: perl-DBI, perl-DBD-MySQL
-Conflicts: MySQL-server
 # IUS-isms
 Provides: mysql-server = %{version}-%{release}
 Provides: mysql-server%{?_isa} = %{version}-%{release}
@@ -133,7 +129,6 @@ Group: Applications/Databases
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: openssl-devel%{?_isa}
-Conflicts: MySQL-devel
 # IUS-isms
 Provides: mysql-devel = %{version}-%{release}
 Provides: mysql-devel%{?_isa} = %{version}-%{release}
@@ -182,7 +177,6 @@ the embedded version of the MySQL server.
 Summary: MySQL benchmark scripts and data
 Group: Applications/Databases
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Conflicts: MySQL-bench
 # IUS-isms
 Provides: mysql-bench = %{version}-%{release}
 Provides: mysql-bench%{?_isa} = %{version}-%{release}
@@ -201,7 +195,6 @@ Group: Applications/Databases
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-common%{?_isa} = %{version}-%{release}
 Requires: %{name}-server%{?_isa} = %{version}-%{release}
-Conflicts: MySQL-test
 # IUS-isms
 Provides: mysql-test = %{version}-%{release}
 Provides: mysql-test%{?_isa} = %{version}-%{release}
