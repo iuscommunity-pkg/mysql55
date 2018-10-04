@@ -1,6 +1,6 @@
 Name: mysql55
 Version: 5.5.61
-Release: 1.ius%{?dist}
+Release: 2.ius%{?dist}
 Summary: MySQL client programs and shared libraries
 Group: Applications/Databases
 URL: http://www.mysql.com
@@ -100,7 +100,7 @@ MySQL package.
 Summary: The MySQL server and related files
 Group: Applications/Databases
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: %{name}-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: sh-utils
 Requires(pre): /usr/sbin/useradd
 Requires(post): chkconfig
@@ -661,6 +661,9 @@ fi
 
 
 %changelog
+* Thu Oct 04 2018 Carl George <carl@george.computer> - 5.5.61-2.ius
+- Make server subpackage require libs subpackage because it still owns my.cnf
+
 * Thu Sep 27 2018 Carl George <carl@george.computer> - 5.5.61-1.ius
 - Latest upstream
 - Move shared files to common subpackage
