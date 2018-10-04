@@ -89,6 +89,10 @@ MySQL server.
 %package common
 Summary: The shared files required for MySQL server and client
 Group: Applications/Databases
+# IUS-isms
+Provides: mysql-common = %{version}-%{release}
+Provides: mysql-common%{?_isa} = %{version}-%{release}
+Conflicts: mysql-common < %{version}
 
 
 %description common
