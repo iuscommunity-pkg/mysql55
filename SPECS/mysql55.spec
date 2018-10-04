@@ -88,6 +88,7 @@ MySQL server.
 
 %package common
 Summary: The shared files required for MySQL server and client
+Group: Applications/Databases
 
 
 %description common
